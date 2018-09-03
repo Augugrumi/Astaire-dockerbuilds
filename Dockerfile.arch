@@ -16,6 +16,7 @@ RUN pacman -Sy --noconfirm \
     su builder -c 'makepkg -isr --noconfirm' && \
     cd - && \
     su builder -c 'yay -S --noconfirm \
+    jsoncpp \
     libtins \
     libviface-git'
 
