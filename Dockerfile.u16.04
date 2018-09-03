@@ -11,6 +11,7 @@ RUN apt-get update && apt-get install -y \
     libboost-all-dev \
     libpcap-dev \
     libssl-dev \
+    libjsoncpp-dev \
     cmake \
     git && \
     wget https://github.com/Augugrumi/libviface/releases/download/v1.1.1/libviface_1.0.0.deb && \
