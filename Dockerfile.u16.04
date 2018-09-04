@@ -32,4 +32,5 @@ RUN mkdir -p /build/
 VOLUME /build/
 WORKDIR /build/
 
-ENTRYPOINT ["bash", "-c", "aclocal -I m4 --install && autoconf && automake --add-missing && ./configure && make"]
+COPY builder.sh /usr/bin/builder
+ENTRYPOINT ["builder"]
