@@ -17,6 +17,15 @@ RUN apt-get update && apt-get install -y \
     dpkg -i libviface_1.0.0.deb && \
     rm -rf /var/lib/apt/lists/*
 
+RUN git clone https://github.com/LaKabane/libtuntap.git && \
+    cd libtuntap && \
+    mkdir build && \
+    cd build && \
+    cmake ../ -DENABLE_CXX=true && \
+    make && \
+    make install && \
+    ldconfig
+
 RUN mkdir -p /build/
 VOLUME /build/
 WORKDIR /build/
