@@ -16,17 +16,17 @@ RUN pacman -Sy --noconfirm \
     su builder -c 'makepkg -isr --noconfirm' && \
     cd - && \
     rm -Rf yay && \
-    su builder -c 'yay -S --noconfirm \
+    git clone https://github.com/Polpetta/libtuntap-archpkg.git && \
+    cd libtuntap-archpkg && \
+    chown -R builder . && \
+    su builder -c 'makepkg -isr --noconfirm' && \
+    cd - && \
+    rm -Rf libtuntap-archpkg && \
+    su builder -c 'yay -S --noconfirm --afterclean \
     jdk8-openjdk \
     jsoncpp \
     libtins \
     libviface-git'
-
-RUN git clone https://github.com/Polpetta/libtuntap-archpkg.git && \
-    cd libtuntap-archpkg && \
-    su builder -c 'makepkg -isr --noconfirm' && \
-    cd - && \
-    rm -Rf libtuntap-archpkg
 
 RUN mkdir -p /build/
 VOLUME /build/
