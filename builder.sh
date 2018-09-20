@@ -1,3 +1,13 @@
 #!/bin/sh
 
-aclocal -I m4 --install && autoconf && automake --add-missing && ./configure $@ && make
+set -e
+
+if [ -d "build" ]
+then
+    rm -Rf build/
+fi
+
+mkdir build/
+cd build/
+cmake $@ ..
+make
