@@ -5,6 +5,7 @@ LABEL maintainer="poloniodavide@gmail.com"
 RUN pacman -Sy --noconfirm \
     git \
     sudo \
+    cmake \
     boost && \
     git clone https://aur.archlinux.org/yay.git && \
     cd yay && \
@@ -16,17 +17,10 @@ RUN pacman -Sy --noconfirm \
     su builder -c 'makepkg -isr --noconfirm' && \
     cd - && \
     rm -Rf yay && \
-    git clone https://github.com/Polpetta/libtuntap-archpkg.git && \
-    cd libtuntap-archpkg && \
-    chown -R builder . && \
-    su builder -c 'makepkg -isr --noconfirm' && \
-    cd - && \
-    rm -Rf libtuntap-archpkg && \
     su builder -c 'yay -S --noconfirm --afterclean \
     jdk8-openjdk \
     jsoncpp \
-    libtins \
-    libviface-git'
+    pistache-git'
 
 RUN mkdir -p /build/
 VOLUME /build/
