@@ -1,0 +1,30 @@
+FROM alpine:3.8
+
+LABEL maintainer="poloniodavide@gmail.com"
+
+ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
+
+RUN apk add --update --no-cache \
+    cmake \
+    jsoncpp-dev \
+    openjdk8 \
+    build-base \
+    wget \
+    git \
+    boost-dev && \
+    rm -rf /var/cache/apk/*
+
+RUN git clone https://github.com/oktal/pistache.git --recursive && \
+    cd pistache && \
+    mkdir build && \
+    cd build && \
+    cmake -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr/ .. && \
+    make && \
+    make install/strip
+
+RUN mkdir -p /build/
+VOLUME /build/
+WORKDIR /build/
+
+COPY builder.sh /usr/bin/builder
+ENTRYPOINT ["builder"]
