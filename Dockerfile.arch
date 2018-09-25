@@ -7,20 +7,22 @@ RUN pacman -Sy --noconfirm \
     sudo \
     cmake \
     boost && \
-    git clone https://aur.archlinux.org/yay.git && \
-    cd yay && \
     useradd -d /home/builder builder && \
     mkdir -p /home/builder && \
-    chown -R builder . && \
     chown -R builder /home/builder && \
     echo 'builder ALL=(ALL) NOPASSWD: ALL' | sudo EDITOR='tee -a' visudo && \
+    pacman -S --noconfirm \
+    jdk8-openjdk \
+    jsoncpp && \
+    git clone https://aur.archlinux.org/pistache-git.git pistache && \
+    cd pistache && \
+    sed -i '/make test/d' PKGBUILD && \
+    sed -i 's/-DPISTACHE_BUILD_TESTS=true/-DPISTACHE_BUILD_TESTS=false/g' PKGBUILD && \
+    chown -R builder . && \
     su builder -c 'makepkg -isr --noconfirm' && \
     cd - && \
-    rm -Rf yay && \
-    su builder -c 'yay -S --noconfirm --afterclean \
-    jdk8-openjdk \
-    jsoncpp \
-    pistache-git'
+    rm -Rf pistache/ && \
+    pacman -Rsc git --noconfirm
 
 RUN mkdir -p /build/
 VOLUME /build/
