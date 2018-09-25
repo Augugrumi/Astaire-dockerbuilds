@@ -28,3 +28,4 @@ WORKDIR /build/
 
 COPY builder.sh /usr/bin/builder
 ENTRYPOINT ["builder"]
+
