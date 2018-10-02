@@ -3,6 +3,7 @@ FROM base/devel:latest
 LABEL maintainer="poloniodavide@gmail.com"
 
 RUN pacman -Sy --noconfirm \
+    curl \
     git \
     sudo \
     cmake \

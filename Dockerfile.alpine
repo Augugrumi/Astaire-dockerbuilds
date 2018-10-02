@@ -5,6 +5,7 @@ LABEL maintainer="poloniodavide@gmail.com"
 ENV JAVA_HOME="/usr/lib/jvm/default-jvm"
 
 RUN apk add --update --no-cache \
+    curl-dev \
     cmake \
     jsoncpp-dev \
     openjdk8 \
